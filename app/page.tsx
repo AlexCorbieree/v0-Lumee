@@ -1,7 +1,7 @@
 import { Header } from '@/components/header'
 import { HeroSection } from '@/components/hero-section'
 import { WeeklyHighlights } from '@/components/weekly-highlights'
-import { CatalogSection } from '@/components/catalog-section'
+import { ShowroomSection } from '@/components/showroom-section'
 import { BrandsSection } from '@/components/brands-section'
 import { AboutSection } from '@/components/about-section'
 import { LocationSection } from '@/components/location-section'
@@ -30,7 +30,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <WeeklyHighlights lenses={highlightLenses} />
-        <CatalogSection />
+        <ShowroomSection />
         <BrandsSection />
         <AboutSection />
         <LocationSection />
