@@ -5,6 +5,8 @@ import { CatalogFilters } from './catalog-filters'
 import { LensCard } from './lens-card'
 import { sampleLenses } from '@/lib/sample-data'
 import type { FilterState, SortOption } from '@/lib/types'
+import { Glasses, Sun } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export function CatalogSection() {
   const [filters, setFilters] = useState<FilterState>({
@@ -65,20 +67,57 @@ export function CatalogSection() {
     setFilters((prev) => ({ ...prev, ...newFilters }))
   }
 
+  // Separate first item for featured display
+  const featuredLens = filteredAndSortedLenses[0]
+  const remainingLenses = filteredAndSortedLenses.slice(1)
+
   return (
-    <section id="catalogo" className="py-20">
+    <section id="catalogo" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <p className="text-muted-foreground text-sm tracking-[0.2em] uppercase mb-2">
-            Nuestra Colección
-          </p>
-          <h2 className="text-3xl md:text-4xl font-serif mb-4">
-            Explora el Catálogo
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-4 mb-6">
+            <div className="h-px w-12 bg-border" />
+            <p className="text-muted-foreground text-sm tracking-[0.25em] uppercase">
+              Colección Exclusiva
+            </p>
+            <div className="h-px w-12 bg-border" />
+          </div>
+          <h2 className="text-3xl md:text-5xl font-serif mb-4 text-balance">
+            Nuestro Showroom
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Descubre nuestra selección curada de lentes de las mejores marcas. 
-            Filtra por tipo, marca o género para encontrar tu estilo perfecto.
+          <p className="text-muted-foreground max-w-xl mx-auto text-balance">
+            Una selección curada de las mejores marcas internacionales. 
+            Cada pieza es única, cada detalle importa.
           </p>
+        </div>
+
+        {/* Category Quick Select */}
+        <div className="flex items-center justify-center gap-4 mb-12">
+          <button
+            onClick={() => handleFilterChange({ category: filters.category === 'sol' ? null : 'sol' })}
+            className={cn(
+              'flex items-center gap-3 px-6 py-3 rounded-full border transition-all duration-300',
+              filters.category === 'sol'
+                ? 'bg-foreground text-background border-foreground'
+                : 'border-border hover:border-foreground/50 hover:bg-secondary/50'
+            )}
+          >
+            <Sun className="h-5 w-5" />
+            <span className="font-medium">Lentes de Sol</span>
+          </button>
+          <button
+            onClick={() => handleFilterChange({ category: filters.category === 'aumento' ? null : 'aumento' })}
+            className={cn(
+              'flex items-center gap-3 px-6 py-3 rounded-full border transition-all duration-300',
+              filters.category === 'aumento'
+                ? 'bg-foreground text-background border-foreground'
+                : 'border-border hover:border-foreground/50 hover:bg-secondary/50'
+            )}
+          >
+            <Glasses className="h-5 w-5" />
+            <span className="font-medium">Lentes de Aumento</span>
+          </button>
         </div>
 
         <CatalogFilters
@@ -90,15 +129,29 @@ export function CatalogSection() {
         />
 
         {filteredAndSortedLenses.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {filteredAndSortedLenses.map((lens) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-fr">
+            {/* Featured Item - First in grid, spans 2 cols on larger screens */}
+            {featuredLens && (
+              <div className="col-span-2 row-span-1 md:row-span-2">
+                <LensCard lens={featuredLens} variant="featured" />
+              </div>
+            )}
+            
+            {/* Remaining Items */}
+            {remainingLenses.map((lens) => (
               <LensCard key={lens.id} lens={lens} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground text-lg mb-4">
-              No se encontraron lentes con los filtros seleccionados.
+          <div className="text-center py-20 px-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-4">
+              <Glasses className="h-8 w-8 text-muted-foreground" />
+            </div>
+            <p className="text-muted-foreground text-lg mb-2">
+              No se encontraron resultados
+            </p>
+            <p className="text-sm text-muted-foreground mb-6">
+              Intenta ajustar los filtros para encontrar lo que buscas
             </p>
             <button
               onClick={() =>
@@ -110,20 +163,26 @@ export function CatalogSection() {
                   search: '',
                 })
               }
-              className="text-primary hover:underline"
+              className="text-primary hover:underline font-medium"
             >
-              Limpiar filtros
+              Limpiar todos los filtros
             </button>
           </div>
         )}
 
         {/* Load More hint for scalability */}
         {filteredAndSortedLenses.length >= 12 && (
-          <div className="text-center mt-12">
-            <p className="text-sm text-muted-foreground mb-4">
-              Mostrando {filteredAndSortedLenses.length} de 150+ modelos
-            </p>
-            {/* This would implement pagination/infinite scroll for the full 400 photo catalog */}
+          <div className="text-center mt-16">
+            <div className="inline-flex flex-col items-center">
+              <p className="text-sm text-muted-foreground mb-4">
+                Mostrando {filteredAndSortedLenses.length} de 150+ modelos disponibles
+              </p>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="w-2 h-2 rounded-full bg-border" />
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>
