@@ -8,7 +8,39 @@
     "gender": "unisex",
     "price": 7771,
     "featured": false,
-    "images": []
+    "images": [
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/1.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/2.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/3.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/4.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/5.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/6.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/7.png"
+    ],
+    "variants": [
+      {
+        "color": "HAVANA",
+        "images": [
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/1.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/2.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/3.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/4.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/5.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/6.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/7.png"
+        ]
+      },
+      {
+        "color": "NEGRO",
+        "images": [
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/1.png",
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/2.png",
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/3.png",
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/4.png",
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/5.png"
+        ]
+      }
+    ]
   },
   {
     "id": "lme-boss-0002",
@@ -78,7 +110,41 @@
     "gender": "unisex",
     "price": 8982,
     "featured": false,
-    "images": []
+    "images": [
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/1.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/2.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/3.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/4.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/5.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/6.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/7.png"
+    ],
+    "variants": [
+      {
+        "color": "HAVANA",
+        "images": [
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/1.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/2.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/3.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/4.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/5.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/6.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/7.png"
+        ]
+      },
+      {
+        "color": "NEGRO",
+        "images": [
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/1.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/2.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/3.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/4.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/5.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/6.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/7.png"
+        ]
+      }
+    ]
   },
   {
     "id": "lme-boss-0006",
@@ -89,7 +155,41 @@
     "gender": "unisex",
     "price": 8982,
     "featured": false,
-    "images": []
+    "images": [
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/1.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/2.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/3.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/4.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/5.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/6.png",
+      "/assets/catalogo/boss/BOSS 1853-S HAVANA/7.png"
+    ],
+    "variants": [
+      {
+        "color": "HAVANA",
+        "images": [
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/1.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/2.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/3.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/4.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/5.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/6.png",
+          "/assets/catalogo/boss/BOSS 1853-S HAVANA/7.png"
+        ]
+      },
+      {
+        "color": "NEGRO",
+        "images": [
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/1.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/2.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/3.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/4.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/5.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/6.png",
+          "/assets/catalogo/boss/BOSS 1853-S NEGRO/7.png"
+        ]
+      }
+    ]
   },
   {
     "id": "lme-boss-0007",
@@ -158,7 +258,39 @@
     "gender": "unisex",
     "price": 7771,
     "featured": false,
-    "images": []
+    "images": [
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/1.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/2.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/3.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/4.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/5.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/6.png",
+      "/assets/catalogo/boss/BOSS 1844-S HAVANA/7.png"
+    ],
+    "variants": [
+      {
+        "color": "HAVANA",
+        "images": [
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/1.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/2.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/3.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/4.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/5.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/6.png",
+          "/assets/catalogo/boss/BOSS 1844-S HAVANA/7.png"
+        ]
+      },
+      {
+        "color": "NEGRO",
+        "images": [
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/1.png",
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/2.png",
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/3.png",
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/4.png",
+          "/assets/catalogo/boss/BOSS 1844-S NEGRO/5.png"
+        ]
+      }
+    ]
   },
   {
     "id": "lme-boss-0011",
