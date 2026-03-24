@@ -79,7 +79,9 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
                 alt={`${lens.brand} ${lens.name}`}
                 fill
                 className="object-contain p-4"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                loading={index < 4 ? 'eager' : 'lazy'}
+                priority={index < 4}
               />
             ) : (
               <div className="relative w-4/5 h-4/5 flex items-center justify-center">
@@ -251,18 +253,32 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
                       <ChevronRight className="h-5 w-5" />
                     </button>
 
-                    {/* Dots */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                      {images.map((_, i) => (
+                    {/* Thumbnail Strip */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-background/80 backdrop-blur-sm rounded-lg p-2">
+                      {images.slice(0, 5).map((img, i) => (
                         <button
                           key={i}
                           onClick={() => setCurrentImageIndex(i)}
                           className={cn(
-                            'w-2 h-2 rounded-full transition-all',
-                            i === currentImageIndex ? 'bg-foreground w-6' : 'bg-foreground/30'
+                            'w-12 h-12 rounded-md overflow-hidden border-2 transition-all',
+                            i === currentImageIndex ? 'border-foreground' : 'border-transparent opacity-60 hover:opacity-100'
                           )}
-                        />
+                        >
+                          <Image
+                            src={img}
+                            alt={`Vista ${i + 1}`}
+                            width={48}
+                            height={48}
+                            className="object-cover w-full h-full"
+                            loading="lazy"
+                          />
+                        </button>
                       ))}
+                      {images.length > 5 && (
+                        <span className="flex items-center justify-center w-12 h-12 text-xs text-muted-foreground">
+                          +{images.length - 5}
+                        </span>
+                      )}
                     </div>
                   </>
                 )}

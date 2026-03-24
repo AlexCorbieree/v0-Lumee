@@ -23,7 +23,7 @@ import { sampleLenses, brands, genderOptions } from '@/lib/sample-data'
 import type { FilterState, SortOption } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
-const ITEMS_PER_PAGE = 12
+const ITEMS_PER_PAGE = 8
 
 export function ShowroomSection() {
   const [filters, setFilters] = useState<FilterState>({

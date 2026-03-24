@@ -140,6 +140,7 @@ export function WeeklyHighlights({ lenses }: WeeklyHighlightsProps) {
                             fill
                             className="object-contain p-6"
                             sizes="(max-width: 768px) 320px, 400px"
+                            loading="lazy"
                           />
                         ) : (
                           <span className="text-[120px] md:text-[160px] font-serif font-light text-foreground/5 select-none">
