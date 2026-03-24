@@ -3,10 +3,26 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+let __dirname = path.dirname(__filename);
 
-const productsPath = path.join(__dirname, '../data/products.json');
-const catalogPath = path.join(__dirname, '../public/assets/catalogo');
+// Find the actual project root by searching upwards for package.json
+let projectRoot = __dirname;
+for (let i = 0; i < 5; i++) {
+  if (fs.existsSync(path.join(projectRoot, 'package.json'))) {
+    break;
+  }
+  projectRoot = path.dirname(projectRoot);
+}
+
+const productsPath = path.join(projectRoot, 'data/products.json');
+const catalogPath = path.join(projectRoot, 'public/assets/catalogo');
+
+console.log('[v0] Script location:', __dirname);
+console.log('[v0] Project root found:', projectRoot);
+console.log('[v0] Products path:', productsPath);
+console.log('[v0] Catalog path:', catalogPath);
+console.log('[v0] Catalog exists:', fs.existsSync(catalogPath));
+console.log('[v0] Products file exists:', fs.existsSync(productsPath));
 
 // Read the catalog directory structure
 function getCatalogStructure() {
