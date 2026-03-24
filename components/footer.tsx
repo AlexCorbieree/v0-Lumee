@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Instagram, Facebook } from 'lucide-react'
 
 const footerLinks = {
   catalogo: [
@@ -31,28 +30,8 @@ export function Footer() {
               <span className="text-2xl font-serif tracking-wider">LUMEE</span>
             </Link>
             <p className="text-background/70 text-sm mb-4">
-              Óptica boutique de lujo en Puebla. Tu estilo, nuestra pasión.
+              Optica boutique de lujo en Puebla. Tu estilo, nuestra pasion.
             </p>
-            <div className="flex gap-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-background/70 hover:text-background transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-background/70 hover:text-background transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
           {/* Catalogo */}

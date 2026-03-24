@@ -68,16 +68,26 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px]" />
           </div>
 
-          {/* Placeholder/Image */}
+          {/* Product Image */}
           <div className={cn(
             'absolute inset-0 flex items-center justify-center transition-transform duration-700 ease-out',
             isHovered ? 'scale-105' : 'scale-100'
           )}>
-            <div className="relative w-4/5 h-4/5 flex items-center justify-center">
-              <span className="text-8xl font-serif font-light text-foreground/5 select-none">
-                {lens.brand.charAt(0)}
-              </span>
-            </div>
+            {images[0] && images[0] !== '/placeholder.png' ? (
+              <Image
+                src={images[0]}
+                alt={`${lens.brand} ${lens.name}`}
+                fill
+                className="object-contain p-4"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            ) : (
+              <div className="relative w-4/5 h-4/5 flex items-center justify-center">
+                <span className="text-8xl font-serif font-light text-foreground/5 select-none">
+                  {lens.brand.charAt(0)}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Top Badges */}
@@ -147,7 +157,7 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
 
           {/* Details */}
           <p className="text-xs text-muted-foreground mb-4">
-            {lens.color} · {lens.category === 'sol' ? 'Sol' : 'Aumento'}
+            {lens.color ? `${lens.color} · ` : ''}{lens.category === 'sol' ? 'Sol' : 'Aumento'}
           </p>
 
           {/* Price & Action */}
@@ -207,10 +217,22 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
               <div className="relative aspect-square bg-secondary/30">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px]" />
                 
+                {/* Current Image */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-[200px] font-serif font-light text-foreground/5 select-none">
-                    {lens.brand.charAt(0)}
-                  </span>
+                  {images[currentImageIndex] && images[currentImageIndex] !== '/placeholder.png' ? (
+                    <Image
+                      src={images[currentImageIndex]}
+                      alt={`${lens.brand} ${lens.name} - Imagen ${currentImageIndex + 1}`}
+                      fill
+                      className="object-contain p-6"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
+                    />
+                  ) : (
+                    <span className="text-[200px] font-serif font-light text-foreground/5 select-none">
+                      {lens.brand.charAt(0)}
+                    </span>
+                  )}
                 </div>
 
                 {/* Image Navigation */}
@@ -295,10 +317,12 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
                   )}
 
                   <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="p-4 rounded-xl bg-secondary/50">
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Color</p>
-                      <p className="font-medium">{lens.variants && lens.variants.length > 0 ? lens.variants[selectedVariant]?.color : lens.color}</p>
-                    </div>
+                    {(lens.color || (lens.variants && lens.variants.length > 0)) && (
+                      <div className="p-4 rounded-xl bg-secondary/50">
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Color</p>
+                        <p className="font-medium">{lens.variants && lens.variants.length > 0 ? lens.variants[selectedVariant]?.color : lens.color}</p>
+                      </div>
+                    )}
                     <div className="p-4 rounded-xl bg-secondary/50">
                       <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Genero</p>
                       <p className="font-medium capitalize">{lens.gender === 'unisex' ? 'Unisex' : lens.gender === 'hombre' ? 'Hombre' : 'Mujer'}</p>

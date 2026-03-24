@@ -42,7 +42,7 @@ export function HeroSection() {
               </Button>
             </a>
             <a
-              href="https://wa.me/522221234567?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20sus%20lentes"
+              href="https://wa.me/522221234567?text=Hola,%20me%20gustaría%20agendar%20una%20cita%20para%20conocer%20sus%20lentes"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -51,7 +51,7 @@ export function HeroSection() {
                 variant="outline"
                 className="rounded-full px-8 py-6 text-base border-white text-white hover:bg-white/10"
               >
-                Agendar Cita
+                Contactar por WhatsApp
               </Button>
             </a>
           </div>

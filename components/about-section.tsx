@@ -55,15 +55,36 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Right Image Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-4">
-              <div className="aspect-square rounded-lg bg-gradient-to-br from-amber-100 to-amber-200" />
-              <div className="aspect-[4/5] rounded-lg bg-gradient-to-br from-stone-100 to-stone-200" />
+          {/* Right - Stats and CTA */}
+          <div className="bg-secondary/50 rounded-2xl p-8 md:p-12">
+            <div className="grid grid-cols-2 gap-8 mb-8">
+              <div className="text-center">
+                <p className="text-4xl md:text-5xl font-serif text-primary mb-2">15+</p>
+                <p className="text-sm text-muted-foreground">Marcas Exclusivas</p>
+              </div>
+              <div className="text-center">
+                <p className="text-4xl md:text-5xl font-serif text-primary mb-2">10+</p>
+                <p className="text-sm text-muted-foreground">Anos de Experiencia</p>
+              </div>
+              <div className="text-center">
+                <p className="text-4xl md:text-5xl font-serif text-primary mb-2">5000+</p>
+                <p className="text-sm text-muted-foreground">Clientes Satisfechos</p>
+              </div>
+              <div className="text-center">
+                <p className="text-4xl md:text-5xl font-serif text-primary mb-2">100%</p>
+                <p className="text-sm text-muted-foreground">Productos Originales</p>
+              </div>
             </div>
-            <div className="space-y-4 pt-8">
-              <div className="aspect-[4/5] rounded-lg bg-gradient-to-br from-zinc-100 to-zinc-200" />
-              <div className="aspect-square rounded-lg bg-gradient-to-br from-neutral-100 to-neutral-200" />
+            <div className="text-center pt-6 border-t border-border">
+              <p className="text-muted-foreground mb-4">Visitanos en nuestra sucursal</p>
+              <a
+                href="https://wa.me/522221234567?text=Hola,%20me%20gustaria%20agendar%20una%20cita%20para%20visitar%20su%20optica"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Agendar Visita por WhatsApp
+              </a>
             </div>
           </div>
         </div>

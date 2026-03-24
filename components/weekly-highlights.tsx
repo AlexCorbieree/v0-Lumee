@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { ChevronLeft, ChevronRight, MessageCircle, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -130,11 +131,21 @@ export function WeeklyHighlights({ lenses }: WeeklyHighlightsProps) {
                         <div className="absolute bottom-1/4 right-1/4 w-24 h-24 rounded-full bg-white/40 blur-2xl" />
                       </div>
                       
-                      {/* Brand Initial */}
+                      {/* Product Image */}
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-[120px] md:text-[160px] font-serif font-light text-foreground/5 select-none">
-                          {lens.brand.charAt(0)}
-                        </span>
+                        {lens.images && lens.images.length > 0 && lens.images[0] !== '/placeholder.png' ? (
+                          <Image
+                            src={lens.images[0]}
+                            alt={`${lens.brand} ${lens.name}`}
+                            fill
+                            className="object-contain p-6"
+                            sizes="(max-width: 768px) 320px, 400px"
+                          />
+                        ) : (
+                          <span className="text-[120px] md:text-[160px] font-serif font-light text-foreground/5 select-none">
+                            {lens.brand.charAt(0)}
+                          </span>
+                        )}
                       </div>
 
                       {/* Badges */}
