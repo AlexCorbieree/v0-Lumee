@@ -1,3 +1,8 @@
+export interface LensVariant {
+  color: string
+  images: string[]
+}
+
 export interface Lens {
   id: string
   name: string
@@ -8,6 +13,7 @@ export interface Lens {
   color: string
   material?: string
   images: string[]
+  variants?: LensVariant[]
   isNew?: boolean
   isFeatured?: boolean
   description?: string

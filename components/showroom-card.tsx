@@ -18,6 +18,7 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
   const [isLiked, setIsLiked] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [selectedVariant, setSelectedVariant] = useState(0)
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-MX', {
@@ -30,10 +31,15 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
   const whatsappMessage = `Hola, me interesa el modelo ${lens.name} de ${lens.brand}. ¿Podrían darme más información?`
   const whatsappUrl = `https://wa.me/522221234567?text=${encodeURIComponent(whatsappMessage)}`
 
+  // Get current variant images or default to lens.images
+  const currentVariantImages = lens.variants && lens.variants.length > 0 
+    ? lens.variants[selectedVariant]?.images || lens.images
+    : lens.images
+
   // Simulate multiple images for demo
-  const images = lens.images && lens.images.length > 0 
-    ? lens.images 
-    : [lens.image, lens.image, lens.image]
+  const images = currentVariantImages && currentVariantImages.length > 0 
+    ? currentVariantImages 
+    : [lens.images?.[0] || '/placeholder.png']
 
   return (
     <>
@@ -49,7 +55,11 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          setShowModal(true)
+          setCurrentImageIndex(0)
+          setSelectedVariant(0)
+        }}
       >
         {/* Image Section */}
         <div className="relative aspect-[3/4] overflow-hidden bg-secondary/30">
@@ -170,7 +180,11 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
       {showModal && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200"
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            setShowModal(false)
+            setCurrentImageIndex(0)
+            setSelectedVariant(0)
+          }}
         >
           <div 
             className="relative w-full max-w-5xl bg-card rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300"
@@ -178,7 +192,11 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
           >
             {/* Close Button */}
             <button
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                setShowModal(false)
+                setCurrentImageIndex(0)
+                setSelectedVariant(0)
+              }}
               className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
             >
               <X className="h-5 w-5" />
@@ -248,10 +266,38 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
                     {lens.name}
                   </h2>
 
+                  {/* Color Variant Selector */}
+                  {lens.variants && lens.variants.length > 0 && (
+                    <div className="mb-8 pb-8 border-b border-border">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-3">
+                        Cambiar Color
+                      </p>
+                      <div className="flex gap-3 flex-wrap">
+                        {lens.variants.map((variant, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setSelectedVariant(idx)
+                              setCurrentImageIndex(0)
+                            }}
+                            className={cn(
+                              'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+                              selectedVariant === idx
+                                ? 'bg-primary text-primary-foreground'
+                                : 'bg-secondary/50 text-foreground hover:bg-secondary'
+                            )}
+                          >
+                            {variant.color}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="p-4 rounded-xl bg-secondary/50">
                       <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Color</p>
-                      <p className="font-medium">{lens.color}</p>
+                      <p className="font-medium">{lens.variants && lens.variants.length > 0 ? lens.variants[selectedVariant]?.color : lens.color}</p>
                     </div>
                     <div className="p-4 rounded-xl bg-secondary/50">
                       <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Genero</p>
