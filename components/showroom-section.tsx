@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { Search, SlidersHorizontal, X, ChevronLeft, ChevronRight, Glasses, Sun, LayoutGrid, List } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -81,17 +81,19 @@ export function ShowroomSection() {
   }, [filters, sortOption])
 
   const totalPages = Math.ceil(filteredAndSortedLenses.length / ITEMS_PER_PAGE)
-  const paginatedLenses = filteredAndSortedLenses.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+  const paginatedLenses = useMemo(() => 
+    filteredAndSortedLenses.slice(
+      (currentPage - 1) * ITEMS_PER_PAGE,
+      currentPage * ITEMS_PER_PAGE
+    ), [filteredAndSortedLenses, currentPage]
   )
 
-  const handleFilterChange = (newFilters: Partial<FilterState>) => {
+  const handleFilterChange = useCallback((newFilters: Partial<FilterState>) => {
     setFilters((prev) => ({ ...prev, ...newFilters }))
     setCurrentPage(1)
-  }
+  }, [])
 
-  const clearAllFilters = () => {
+  const clearAllFilters = useCallback(() => {
     setFilters({
       category: null,
       brand: null,
@@ -100,7 +102,7 @@ export function ShowroomSection() {
       search: '',
     })
     setCurrentPage(1)
-  }
+  }, [])
 
   const activeFiltersCount = [
     filters.category,

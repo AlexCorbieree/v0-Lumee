@@ -158,3 +158,78 @@
 .whatsapp-pulse {
   animation: pulse-whatsapp 2s infinite;
 }
+
+/* Performance optimizations */
+
+/* Prevent layout shifts with fixed aspect ratios */
+.product-card-image {
+  aspect-ratio: 1 / 1;
+  contain: layout style paint;
+}
+
+/* GPU acceleration for animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Reduce repaints for scroll containers */
+.scroll-container {
+  contain: strict;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Optimized skeleton loading */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--secondary) 0%,
+    var(--muted) 50%,
+    var(--secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+/* Content visibility for off-screen elements */
+.lazy-section {
+  content-visibility: auto;
+  contain-intrinsic-block-size: 400px;
+}
+
+/* Smooth image fade-in */
+.image-fade-in {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.image-fade-in.loaded {
+  opacity: 1;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .whatsapp-pulse {
+    animation: none;
+  }
+}

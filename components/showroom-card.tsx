@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, memo, useCallback } from 'react'
 import Image from 'next/image'
 import { MessageCircle, Eye, Heart, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -16,7 +16,8 @@ interface ShowroomCardProps {
   index: number
 }
 
-export function ShowroomCard({ lens, index }: ShowroomCardProps) {
+// Memoized component to prevent unnecessary re-renders
+export const ShowroomCard = memo(function ShowroomCard({ lens, index }: ShowroomCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -460,4 +461,7 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
       )}
     </>
   )
-}
+})
+
+// Display name for debugging
+ShowroomCard.displayName = 'ShowroomCard'
