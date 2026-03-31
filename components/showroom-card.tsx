@@ -1,12 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { MessageCircle, Eye, Heart, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import type { Lens } from '@/lib/types'
 import { cn } from '@/lib/utils'
+
+// Blur placeholder for smooth loading
+const BLUR_PLACEHOLDER = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsLCgwMDRAQDAwNDgwMDA4MDAwODxAQEBAQEBAQEBAQEBD/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAcI/8QAIhAAAQMDBAMBAAAAAAAAAAAAAQIDBAUGEQAHEiEIE0Ex/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAaEQACAwEBAAAAAAAAAAAAAAABAgADESES/9oADAMBEEhEPwAaJ+jxVq3UZ1pVOHCpVNuJd1xRlTGXJEKMiA0y2lLbjaSpKlqdOeFIUB0CQdaW2L5iu2vI1MZ3Cprl8TYcKnwUpXVJsWBBUwEBYASnnzKlIB/CQoE/Bo0ahZKYqsFB7j//2Q=='
 
 interface ShowroomCardProps {
   lens: Lens
@@ -19,6 +22,35 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
   const [showModal, setShowModal] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [selectedVariant, setSelectedVariant] = useState(0)
+  const [isInView, setIsInView] = useState(index < 4) // First 4 are immediately visible
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const cardRef = useRef<HTMLElement>(null)
+
+  // Intersection Observer for viewport-based loading
+  useEffect(() => {
+    if (index < 4) return // First 4 cards load immediately
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true)
+            observer.disconnect()
+          }
+        })
+      },
+      {
+        rootMargin: '300px', // Preload 300px before entering viewport
+        threshold: 0.01,
+      }
+    )
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [index])
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-MX', {
@@ -44,6 +76,7 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
   return (
     <>
       <article
+        ref={cardRef}
         className={cn(
           'group relative bg-card rounded-2xl overflow-hidden cursor-pointer',
           'border border-border/30 hover:border-border/60',
@@ -68,28 +101,52 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px]" />
           </div>
 
-          {/* Product Image */}
+          {/* Product Image with Smart Loading */}
           <div className={cn(
             'absolute inset-0 flex items-center justify-center transition-transform duration-700 ease-out',
             isHovered ? 'scale-105' : 'scale-100'
           )}>
-            {images[0] && images[0] !== '/placeholder.png' ? (
+            {/* Skeleton while not in viewport */}
+            {!isInView && (
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/40 to-secondary/20 animate-pulse" />
+            )}
+
+            {/* Blur placeholder while loading */}
+            {isInView && !imageLoaded && images[0] && (
+              <div 
+                className="absolute inset-0 bg-secondary/30"
+                style={{
+                  backgroundImage: `url(${BLUR_PLACEHOLDER})`,
+                  backgroundSize: 'cover',
+                  filter: 'blur(15px)',
+                  transform: 'scale(1.05)',
+                }}
+              />
+            )}
+
+            {/* Actual image - only load when in viewport */}
+            {isInView && images[0] && images[0] !== '/placeholder.png' ? (
               <Image
                 src={images[0]}
                 alt={`${lens.brand} ${lens.name}`}
                 fill
-                className="object-contain p-4"
+                className={cn(
+                  'object-contain p-4 transition-opacity duration-500',
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                )}
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 loading={index < 4 ? 'eager' : 'lazy'}
                 priority={index < 4}
+                onLoad={() => setImageLoaded(true)}
+                quality={75}
               />
-            ) : (
+            ) : isInView ? (
               <div className="relative w-4/5 h-4/5 flex items-center justify-center">
                 <span className="text-8xl font-serif font-light text-foreground/5 select-none">
                   {lens.brand.charAt(0)}
                 </span>
               </div>
-            )}
+            ) : null}
           </div>
 
           {/* Top Badges */}

@@ -5,7 +5,7 @@ import { ArrowDown } from 'lucide-react'
 export function HeroSection() {
   return (
     <section id="inicio" className="relative h-screen min-h-[700px] w-full overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image - High quality for hero */}
       <div className="absolute inset-0">
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero-model.jpg-mXGZoC7A8wABEJFEwGbUtWJYatAKWr.png"
@@ -14,7 +14,8 @@ export function HeroSection() {
           className="object-cover object-top"
           priority
           sizes="100vw"
-          quality={85}
+          quality={100}
+          unoptimized
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60" />

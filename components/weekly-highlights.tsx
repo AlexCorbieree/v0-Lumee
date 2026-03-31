@@ -8,6 +8,9 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import type { Lens } from '@/lib/types'
 
+// Blur placeholder
+const BLUR_PLACEHOLDER = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsLCgwMDRAQDAwNDgwMDA4MDAwODxAQEBAQEBAQEBAQEBD/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAcI/8QAIhAAAQMDBAMBAAAAAAAAAAAAAQIDBAUGEQAHEiEIE0Ex/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAaEQACAwEBAAAAAAAAAAAAAAABAgADESES/9oADAMBEEhEPwAaJ+jxVq3UZ1pVOHCpVNuJd1xRlTGXJEKMiA0y2lLbjaSpKlqdOeFIUB0CQdaW2L5iu2vI1MZ3Cprl8TYcKnwUpXVJsWBBUwEBYASnnzKlIB/CQoE/Bo0ahZKYqsFB7j//2Q=='
+
 interface WeeklyHighlightsProps {
   lenses: Lens[]
 }
@@ -15,8 +18,13 @@ interface WeeklyHighlightsProps {
 export function WeeklyHighlights({ lenses }: WeeklyHighlightsProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   
   const highlightLenses = lenses.slice(0, 10)
+  
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => new Set(prev).add(index))
+  }
   
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-MX', {
@@ -131,16 +139,34 @@ export function WeeklyHighlights({ lenses }: WeeklyHighlightsProps) {
                         <div className="absolute bottom-1/4 right-1/4 w-24 h-24 rounded-full bg-white/40 blur-2xl" />
                       </div>
                       
-                      {/* Product Image */}
+                      {/* Product Image with Smart Loading */}
                       <div className="absolute inset-0 flex items-center justify-center">
+                        {/* Blur placeholder while loading */}
+                        {lens.images && lens.images.length > 0 && !loadedImages.has(actualIndex) && (
+                          <div 
+                            className="absolute inset-0 bg-secondary/20"
+                            style={{
+                              backgroundImage: `url(${BLUR_PLACEHOLDER})`,
+                              backgroundSize: 'cover',
+                              filter: 'blur(15px)',
+                              transform: 'scale(1.05)',
+                            }}
+                          />
+                        )}
+                        
                         {lens.images && lens.images.length > 0 && lens.images[0] !== '/placeholder.png' ? (
                           <Image
                             src={lens.images[0]}
                             alt={`${lens.brand} ${lens.name}`}
                             fill
-                            className="object-contain p-6"
+                            className={cn(
+                              'object-contain p-6 transition-opacity duration-500',
+                              loadedImages.has(actualIndex) ? 'opacity-100' : 'opacity-0'
+                            )}
                             sizes="(max-width: 768px) 320px, 400px"
                             loading="lazy"
+                            onLoad={() => handleImageLoad(actualIndex)}
+                            quality={75}
                           />
                         ) : (
                           <span className="text-[120px] md:text-[160px] font-serif font-light text-foreground/5 select-none">
