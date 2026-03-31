@@ -142,7 +142,7 @@ export function WeeklyHighlights({ lenses }: WeeklyHighlightsProps) {
                       {/* Product Image with Smart Loading */}
                       <div className="absolute inset-0 flex items-center justify-center">
                         {/* Blur placeholder while loading */}
-                        {lens.images && lens.images.length > 0 && !loadedImages.has(actualIndex) && (
+                        {lens.images && lens.images.length > 0 && !loadedImages.has(index) && (
                           <div 
                             className="absolute inset-0 bg-secondary/20"
                             style={{
@@ -161,11 +161,11 @@ export function WeeklyHighlights({ lenses }: WeeklyHighlightsProps) {
                             fill
                             className={cn(
                               'object-contain p-6 transition-opacity duration-500',
-                              loadedImages.has(actualIndex) ? 'opacity-100' : 'opacity-0'
+                              loadedImages.has(index) ? 'opacity-100' : 'opacity-0'
                             )}
                             sizes="(max-width: 768px) 320px, 400px"
                             loading="lazy"
-                            onLoad={() => handleImageLoad(actualIndex)}
+                            onLoad={() => handleImageLoad(index)}
                             quality={75}
                           />
                         ) : (

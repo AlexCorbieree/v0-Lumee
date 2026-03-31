@@ -73,6 +73,16 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
     ? currentVariantImages 
     : [lens.images?.[0] || '/placeholder.png']
 
+  // Get modal images (same logic, reusable)
+  const getModalImages = () => {
+    const variantImages = lens.variants && lens.variants.length > 0 
+      ? lens.variants[selectedVariant]?.images || lens.images
+      : lens.images
+    return (variantImages && variantImages.length > 0) ? variantImages : [lens.images?.[0] || '/placeholder.png']
+  }
+
+  const modalImages = getModalImages()
+
   return (
     <>
       <article
@@ -278,9 +288,9 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
                 
                 {/* Current Image */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  {images[currentImageIndex] && images[currentImageIndex] !== '/placeholder.png' ? (
+                  {modalImages[currentImageIndex] && modalImages[currentImageIndex] !== '/placeholder.png' ? (
                     <Image
-                      src={images[currentImageIndex]}
+                      src={modalImages[currentImageIndex]}
                       alt={`${lens.brand} ${lens.name} - Imagen ${currentImageIndex + 1}`}
                       fill
                       className="object-contain p-6"
@@ -295,16 +305,16 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
                 </div>
 
                 {/* Image Navigation */}
-                {images.length > 1 && (
+                {modalImages.length > 1 && (
                   <>
                     <button
-                      onClick={() => setCurrentImageIndex(i => i === 0 ? images.length - 1 : i - 1)}
+                      onClick={() => setCurrentImageIndex(i => i === 0 ? modalImages.length - 1 : i - 1)}
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
                     >
                       <ChevronLeft className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => setCurrentImageIndex(i => i === images.length - 1 ? 0 : i + 1)}
+                      onClick={() => setCurrentImageIndex(i => i === modalImages.length - 1 ? 0 : i + 1)}
                       className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
                     >
                       <ChevronRight className="h-5 w-5" />
@@ -312,7 +322,7 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
 
                     {/* Thumbnail Strip */}
                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-background/80 backdrop-blur-sm rounded-lg p-2">
-                      {images.slice(0, 5).map((img, i) => (
+                      {modalImages.slice(0, 5).map((img, i) => (
                         <button
                           key={i}
                           onClick={() => setCurrentImageIndex(i)}
@@ -331,9 +341,9 @@ export function ShowroomCard({ lens, index }: ShowroomCardProps) {
                           />
                         </button>
                       ))}
-                      {images.length > 5 && (
+                      {modalImages.length > 5 && (
                         <span className="flex items-center justify-center w-12 h-12 text-xs text-muted-foreground">
-                          +{images.length - 5}
+                          +{modalImages.length - 5}
                         </span>
                       )}
                     </div>
