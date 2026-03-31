@@ -3,21 +3,16 @@ import { Playfair_Display, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-// Optimized font loading with preload
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
   variable: '--font-playfair',
   display: 'swap',
-  preload: true,
-  fallback: ['Georgia', 'serif'],
 })
 
 const inter = Inter({ 
   subsets: ["latin"],
   variable: '--font-inter',
   display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'sans-serif'],
 })
 
 export const metadata: Metadata = {
@@ -45,19 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${playfair.variable} ${inter.variable}`}>
-      <head>
-        {/* Preload critical hero image */}
-        <link
-          rel="preload"
-          href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero-model.jpg-mXGZoC7A8wABEJFEwGbUtWJYatAKWr.png"
-          as="image"
-          type="image/png"
-        />
-        {/* DNS prefetch for external resources */}
-        <link rel="dns-prefetch" href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com" />
-        {/* Preconnect to Cloudways CDN (update with your actual domain) */}
-        <link rel="preconnect" href="https://cdn.lumee.mx" crossOrigin="anonymous" />
-      </head>
+
       <body className="font-sans antialiased">
         {children}
         <Analytics />
